@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import axios from '../config/axios';
+import { useUser } from "../context/user.context";
 
 function Register() {
 
@@ -9,11 +10,15 @@ function Register() {
 
   const navigate = useNavigate();
 
+  const {setUser,user} = useUser()
+
 
   const submitHandler = async(e) => {
     e.preventDefault();
     try {
       const { data } = await axios.post("/users/register", { email, password });
+      localStorage.setItem('token', data.token);
+      setUser(data.user)
       console.log(data);
       navigate('/login')
     } catch (error) {

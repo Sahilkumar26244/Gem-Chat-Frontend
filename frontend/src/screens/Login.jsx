@@ -8,7 +8,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   const {setUser,user} = useUser()
-  console.log(user)
+//   console.log(user)
 
   const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ function Login() {
     e.preventDefault();
     try {
       const { data } = await axios.post("/users/login", { email, password });
-      console.log(data);
+    //   console.log(data);
       setUser(data.user)
       navigate('/')
     } catch (error) {
