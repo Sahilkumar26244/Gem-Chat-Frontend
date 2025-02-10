@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "../config/axios";
+import { useUser } from "../context/user.context";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const {setUser,user} = useUser()
+  console.log(user)
 
   const navigate = useNavigate();
 
@@ -14,6 +18,7 @@ function Login() {
     try {
       const { data } = await axios.post("/users/login", { email, password });
       console.log(data);
+      setUser(data.user)
       navigate('/')
     } catch (error) {
       console.error(error);
