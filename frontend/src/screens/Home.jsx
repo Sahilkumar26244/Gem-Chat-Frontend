@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useUser } from "../context/user.context";
+import axios from "../config/axios";
 
 function Home() {
   const { user } = useUser();
@@ -13,6 +14,17 @@ function Home() {
     console.log(projectName);
     setIsModalOpen(false)
     setProjectName("")
+
+    axios.post("/projects/create", { name: projectName }, {
+        headers:{
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+    }).then((res) => {
+        console.log(res.data);
+    })
+    .catch((err) => {
+        console.log(err)
+    })
   }
 
   return (
